@@ -1,7 +1,7 @@
 name: Frontend CI (Validate)
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -19,11 +19,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
 
-      - name: Run Linter & Type Check
-        run: |
-          npm run lint --if-present
+      - name: Run Linter
+        run: npm run lint --if-present
 
-      - name: Test Build Process
+      - name: Test Build Process (Vite)
         run: npm run build

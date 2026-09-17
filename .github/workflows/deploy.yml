@@ -1,4 +1,4 @@
-name: Deploy Frontend to S3
+name: Frontend CD (Deploy)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  id-token: write # Wajib untuk autentikasi OIDC AWS
+  id-token: write
   contents: read
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Install dependencies & Build
         run: |
-          npm install --legacy-peer-deps
+          npm install
           npm run build
 
       - name: Configure AWS Credentials
