@@ -1,4 +1,4 @@
-name: Frontend CD (Deploy)
+name: Frontend CD (Deploy) to s3
 
 on:
   push:
