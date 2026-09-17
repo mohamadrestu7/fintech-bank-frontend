@@ -1,4 +1,4 @@
-name: Frontend CI (Validate)
+name: Validate Frontend CI
 
 on:
   push:
