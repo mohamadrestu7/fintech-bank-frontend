@@ -1,1 +1,38 @@
+name: Deploy Frontend to S3
 
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write # Wajib untuk autentikasi OIDC AWS
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies & Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync dist/ s3://my-bank-frontend-deploy --delete
