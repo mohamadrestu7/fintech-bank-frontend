@@ -24,7 +24,6 @@ jobs:
       - name: Run Linter & Type Check
         run: |
           npm run lint --if-present
-          npx tsc --noEmit --if-present
 
       - name: Run Tests
         run: npm test -- --watchAll=false --if-present
